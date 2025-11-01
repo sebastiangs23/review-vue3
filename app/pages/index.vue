@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/user.ts'
+import { logIn } from '../utils/utils'
 
 const username = ref('')
 const password = ref('')
@@ -12,34 +13,13 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const handleSubmit = async () => {
-  // loading.value = true
   errorMessage.value = ''
 
   try {
-    const res = await fetch('http://localhost:5099/api/users/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: username.value,
-        password: password.value
-      })
-    })
-
-    if (!res.ok) {
-      const err = await res.json()
-      throw new Error(err.message || 'Invalid credentials')
-    }
-
-    const data = await res.json()
-
-    userStore.setUser({
-      id: data.id,
-      name: data.name,
-      email: data.email
-    })
-
-    router.push('/dashboard')
-
+    const response = logIn(username.value, password.value);
+    if(response?.status === "success"){
+      router.push('/dashboard');
+    };
   } catch (err: any) {
     errorMessage.value = err.message || 'Unexpected error occurred'
   } finally {

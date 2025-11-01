@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { useSettingsStore } from "../../stores/settings.ts";
 import { useUserStore } from "../../stores/user.ts";
+import { logOut } from "../utils/utils.ts";
 
 const settings = useSettingsStore();
 const user = useUserStore();
@@ -11,15 +12,11 @@ definePageMeta({
   layout: "modules",
 });
 
-const logOut = () => {
-  try {
-    router.push("/");
-    user.logout();
-    alert("You have been logged out.");
-  } catch (error: any) {
-    alert("Something went wrong");
-  }
-};
+const logOutFn = () => {
+  logOut();
+  router.push("/");
+}
+
 </script>
 <template>
   <div class="modules">
@@ -45,7 +42,7 @@ const logOut = () => {
     >
       <header class="modules__header">
         <h1 class="modules__title">Dashboard</h1>
-        <button @click="logOut()" class="modules__logout">Logout</button>
+        <button @click="logOutFn()" class="modules__logout">Logout</button>
       </header>
 
       <main class="modules__content">

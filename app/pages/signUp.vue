@@ -77,7 +77,7 @@ const handleSubmit = async () => {
 
   try {
     const data = {
-      id: username.value,
+      username: username.value,
       email: email.value,
       password: password.value
     };
@@ -87,7 +87,7 @@ const handleSubmit = async () => {
 
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('currentUser', JSON.stringify({
-      id: data.id,
+      username: data.username,
       email: data.email
     }));
     router.push('/dashboard')
