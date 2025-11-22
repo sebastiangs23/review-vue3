@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import { useSettingsStore } from "../../stores/settings.ts";
-import { useUserStore } from "../../stores/user.ts";
 import { logOut } from "../utils/utils.ts";
 
 const settings = useSettingsStore();
-const user = useUserStore();
 const router = useRouter();
 
 definePageMeta({

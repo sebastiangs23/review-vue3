@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -18,10 +20,8 @@ const handleSubmit = async () => {
     if(response?.status === "success"){
       router.push('/dashboard');
     };
-  } catch (err: any) {
+  } catch (err) {
     errorMessage.value = err.message || 'Unexpected error occurred'
-  } finally {
-    // loading.value = false
   }
 }
 </script>

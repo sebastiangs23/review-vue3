@@ -5,12 +5,13 @@ export function useCurrentUser(){
     const isUserLogged = () => {
         try{
             const storedUser = localStorage.getItem("currentUser");
-            console.log('storared User', storedUser)    
+            console.log('storared User', storedUser)
             if(!storedUser){
                 console.log('gets redirected')
                 router.push('/');
                 return null;
             }else {
+                console.log('enters here')
                 return JSON.parse(storedUser);
             };
 

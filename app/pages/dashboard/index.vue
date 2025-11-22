@@ -1,33 +1,21 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../../../stores/user'
 // import Loader from '../../components/Loader.vue'
 
 definePageMeta({
   layout: 'modules'
 })
 
-const user = useUserStore()
-const router = useRouter()
 import { useCurrentUser } from "../../composables/user"
 // const isChecking = ref(true)
 
 onMounted(() => {
   useCurrentUser()
-  // if (!user.isLogged) {
-  //   router.push('/')
-  // }
-  // isChecking.value = false
 })
 </script>
 
 <template>
-  <!-- <div v-if="isChecking">
-    <Loader />
-  </div> -->
-
-  <!-- <section v-else-if="user.isLogged" class="home"> -->
   <section class="home">
     <header class="home__header">
       <h2 class="home__title">Dashboard Overview</h2>

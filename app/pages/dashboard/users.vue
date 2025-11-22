@@ -2,9 +2,9 @@
 import { ref, onMounted } from "vue";
 import { getUsers, editUser, deleteUser } from "../../utils/utils.ts";
 
-import { useUserStore } from "../../../stores/user";
-
 import Modal from "../../components/Modal.vue";
+
+import { useCurrentUser } from "../../composables/user";
 
 definePageMeta({
   layout: "modules",
@@ -68,7 +68,7 @@ const fetchUsers = () => {
 };
 
 onMounted(() => {
-  useUserStore();
+  useCurrentUser();
   fetchUsers();
 });
 </script>
