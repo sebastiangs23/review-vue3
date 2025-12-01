@@ -7,7 +7,7 @@ import Modal from "../../components/Modal.vue";
 import { useUsers } from "../../composables/user"
 import { useCurrentUser } from "../../composables/currentUser";
 
-const { users, load, add, update, remove } = useUsers();
+const { users, load, add, edit, erase } = useUsers();
 
 definePageMeta({
   layout: "modules",
@@ -39,7 +39,7 @@ const saveUser = () => {
     add(newUser);
   }
 
-  fetchUsers();
+  load();
   closeModal();
 };
 
@@ -58,20 +58,20 @@ const closeModal = () => {
   form.value = { username: "", email: "", password: "" };
 };
 
-const fetchUsers = () => {
-  getUsers().then((data) => {
-    users.value = data;
-  });
-};
+// const fetchUsers = () => {
+//   getUsers().then((data) => {
+//     users.value = data;
+//   });
+// };
 
-const deleteUserFn = (email) => {
-  deleteUser(email);
-  fetchUsers();
-}
+// const deleteUserFn = (email) => {
+//   deleteUser(email);
+//   fetchUsers();
+// }
 
 onMounted(() => {
   useCurrentUser();
-  fetchUsers();
+  load();
 });
 </script>
 
@@ -107,7 +107,7 @@ onMounted(() => {
             </button>
             <button
               class="modal__btn modal__btn--cancel"
-              @click="deleteUserFn(user?.email)"
+              @click="erase(user?.email)"
             >
               Delete
             </button>
