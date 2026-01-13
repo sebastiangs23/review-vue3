@@ -4,7 +4,9 @@ definePageMeta({ layout: "modules" });
 import { ref, watch } from "vue";
 import { useSettingsStore } from "../../../stores/settings";
 import ColorPalette from "../../components/ColorPalette.vue";
+import ColorPaletteSource from "../../components/ColorPalette.vue?raw";
 
+const showCode = ref(false)
 const settings = useSettingsStore();
 const slider = ref(settings.background === "white" ? 100 : 0);
 const colorPalette = ref(settings.colorPalette);
@@ -28,6 +30,8 @@ const updateBackground = () => {
 
 // sincroniza cuando cambia el color
 watch(colorPalette, (newColor) => {
+  //the issue is the color is changing inside of the child component, but the father is not able to detect it
+  console.log('SEEEE', colorPalette)
   settings.setColorPalette(newColor);
 });
 
@@ -83,6 +87,17 @@ watch(colorButtons, (newColor) => {
           :color="item.model"
         />
       </div>
+
+      <!-- Recruiter button -->
+      <button class="show-code" @click="showCode = !showCode">
+        {{ showCode ? 'Hide code' : 'View component code' }}
+      </button>
+
+      <!-- Tooltip / modal / expandable panel -->
+      <pre v-if="showCode" class="code-preview">
+        <code>{{ ColorPaletteSource }}</code>
+      </pre>
+
     </section>
   </section>
 </template>
@@ -124,6 +139,17 @@ watch(colorButtons, (newColor) => {
   font-family: monospace;
   font-size: 0.9rem;
   opacity: 0.8;
+}
+
+.code-preview {
+  margin-top: 16px;
+  padding: 16px;
+  background: #0f172a;
+  color: #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+  max-height: 400px;
 }
 
 </style>
