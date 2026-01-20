@@ -36,12 +36,9 @@ const logOutFn = () => {
 
       <nav class="modules__nav">
         <NuxtLink to="/dashboard/users" class="modules__link">Users</NuxtLink>
-        <NuxtLink to="/dashboard/store" class="modules__link"
-          >Store</NuxtLink
-        >
-        <NuxtLink to="/dashboard/settings" class="modules__link"
-          >Settings</NuxtLink
-        >
+        <NuxtLink to="/dashboard/api-calls" class="modules__link">API Calls</NuxtLink>
+        <NuxtLink to="/dashboard/store-management" class="modules__link">Store Management</NuxtLink>
+        <NuxtLink to="/dashboard/amazon-web-services" class="modules__link">Amazon Web Services</NuxtLink>
       </nav>
     </aside>
 

@@ -54,12 +54,11 @@ const updateColor = ({label, color}) => {
         />
       </div>
 
-      <!-- Recruiter button -->
       <button class="show-code" @click="showCode = !showCode">
         {{ showCode ? 'Hide code' : 'View component code' }}
       </button>
 
-      <!-- Tooltip / modal / expandable panel -->
+      <!-- Make it Modal better -->
       <pre v-if="showCode" class="code-preview">
         <code>{{ ColorPaletteSource }}</code>
       </pre>
