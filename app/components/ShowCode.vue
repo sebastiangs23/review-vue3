@@ -3,6 +3,8 @@ import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import ModalCode from "../components/ModalCode.vue";
+
+import { subModules } from "../utils/common";
 import ColorPaletteSource from "../components/ColorPalette.vue?raw";
 
 const props = defineProps<{
@@ -12,19 +14,23 @@ const props = defineProps<{
 const showCode = ref<Boolean>(false);
 const route = useRoute();
 
-const currentPath = computed(() => route.path?.split("/")[2]);
+const currentSubModule = computed(() => {
+  const path = route.path?.split("/")[2];
+  const module = subModules.find((mod) => mod.route === path);
+  return module;
+});
 </script>
 
 <template>
   <header class="container__header">
       <button class="show-code" @click="showCode = true">
-        {{ `<ShowCode path="${currentPath ? currentPath : "-"}" />` }}
+        {{ `<ShowCode path="${currentSubModule ? currentSubModule.route : "-"}" />` }}
       </button>
 
       <ModalCode
         @close="showCode.value = false;"
         :title="'ColorPalette.vue'"
-        :sourceCode="ColorPaletteSource"
+        :sourceCode="currentSubModule?.source"
         :show="showCode"
       />
   </header>

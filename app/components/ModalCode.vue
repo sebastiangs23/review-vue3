@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: "close"): void;
 }>();
 
-const isVisible = computed(() => props.show);
 
 const copied = ref(false);
 let copiedTimer: number | undefined;
@@ -56,6 +55,8 @@ function onKeydown(e: KeyboardEvent) {
 
 onMounted(() => window.addEventListener("keydown", onKeydown));
 onBeforeUnmount(() => window.removeEventListener("keydown", onKeydown));
+
+const isVisible = computed(() => props.show);
 </script>
 
 <template>
