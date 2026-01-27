@@ -49,35 +49,46 @@ const closeModal = () => {
 .show-code {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid;
-  background: rgba(9, 160, 7, 0.55);
-  color: rgba(226, 232, 240, 0.92);
-  font-size: 14px;
-  font-weight: 650;
+  padding: 6px 12px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+
+  background: #0f172a;
+  color: #e5e7eb;
+  
+
+  font-size: 13px;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
   letter-spacing: 0.2px;
   cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
 }
 
+/* Hover */
 .show-code:hover {
-  background: rgba(9, 130, 6, 0.55);
-  box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.32),
-    0 0 0 3px rgba(59, 246, 93, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  background: #f8fafc;
+
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.9);
 }
 
+/* Active */
 .show-code:active {
   transform: translateY(1px);
 }
 
+/* Focus (keyboard) */
 .show-code:focus-visible {
   outline: none;
-  box-shadow:
-    0 0 0 3px rgba(59, 130, 246, 0.35),
-    0 14px 38px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.35);
 }
 </style>
