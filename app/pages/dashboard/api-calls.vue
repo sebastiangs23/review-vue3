@@ -78,7 +78,7 @@ onMounted(() => {
 
 .store-item {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 5px;
   padding: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   transition:
@@ -95,7 +95,7 @@ onMounted(() => {
 
 .store-item__image-wrapper {
   background: #f7f7f7;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -132,7 +132,7 @@ onMounted(() => {
   background: #111;
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 0.6rem;
   font-weight: 600;
   cursor: pointer;

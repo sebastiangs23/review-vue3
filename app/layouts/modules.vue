@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { logOut } from "../utils/utils.ts";
+import { logOut } from "../utils/utils";
 import { storeToRefs } from "pinia";
-import { useSettingsStore } from "../../stores/settings.ts";
+import { useSettingsStore } from "../../stores/settings";
 import ShowCode from "../components/ShowCode.vue";
 import { subModules } from "../utils/common";
 
