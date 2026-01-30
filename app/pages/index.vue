@@ -4,13 +4,17 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { logIn } from "../utils/utils";
+import { useToast } from "vue-toastification";
+
+import { imgs } from "../assets/css/imgs/imgs";
+
+const router = useRouter();
+const toast = useToast();
 
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
 const loading = ref(false);
-
-const router = useRouter();
 
 const handleSubmit = async () => {
   errorMessage.value = "";
@@ -22,6 +26,16 @@ const handleSubmit = async () => {
     }
   } catch (err) {
     errorMessage.value = err.message || "Unexpected error occurred";
+  }
+};
+
+const notifyFrontendOnly = (provider: string) => {
+  try {
+    toast.info(
+      `"${provider}" login is not available. This is a frontend-only demo.`,
+    );
+  } catch (error) {
+    console.log("Toast notification error:", error);
   }
 };
 </script>
@@ -80,7 +94,7 @@ const handleSubmit = async () => {
         <button
           type="submit"
           :disabled="loading"
-          class="mt-1 inline-flex items-center justify-center rounded-full border border-[var(--black-color)] bg-[var(--color-base)] px-4 py-3 font-bold text-black btn__shadow disabled:opacity-60 disabled:cursor-not-allowed"
+          class="mt-1 inline-flex items-center justify-center rounded-full border border-[var(--black-color)] bg-[var(--color-base)] px-4 py-3 font-bold text-black btn__shadow disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
         >
           {{ loading ? "Signing in..." : "Sign In" }}
         </button>
@@ -88,6 +102,35 @@ const handleSubmit = async () => {
         <p v-if="errorMessage" class="mt-2 text-center text-sm text-red-500">
           {{ errorMessage }}
         </p>
+
+        <div class="flex justify-center gap-3">
+          <button
+            type="button"
+            class="hover-style_v2 hover-style_v2--small cursor-pointer"
+            @click="notifyFrontendOnly('Google')"
+            aria-label="Google login demo"
+          >
+            <Icon name="simple-icons:google" class="h-5 w-5" />
+          </button>
+
+          <button
+            type="button"
+            class="hover-style_v2 hover-style_v2--small cursor-pointer"
+            @click="notifyFrontendOnly('GitHub')"
+            aria-label="GitHub login demo"
+          >
+            <Icon name="simple-icons:github" class="h-5 w-5" />
+          </button>
+
+          <button
+            type="button"
+            class="hover-style_v2 hover-style_v2--small cursor-pointer"
+            @click="notifyFrontendOnly('Apple')"
+            aria-label="Apple login demo"
+          >
+            <Icon name="simple-icons:apple" class="h-5 w-5" />
+          </button>
+        </div>
       </form>
 
       <footer class="text-center mt-6">

@@ -1,19 +1,12 @@
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  css: ["@/assets/css/main.css"],
-  modules: ["@pinia/nuxt"],
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  build: {
-    sourcemap: true,
-  },
-  runtimeConfig: {
-    public: {
-      apiUrl: process.env.API_URL
-    }
-  }
+  css: [
+    "vue-toastification/dist/index.css",
+    "@/assets/css/main.css",
+  ],
+  modules: ["@pinia/nuxt", "@nuxt/icon"],
+  vite: { plugins: [tailwindcss()] },
 });
