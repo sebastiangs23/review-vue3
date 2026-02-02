@@ -27,9 +27,13 @@ body {
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-full border text-black font-bold pb-4;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full border text-black font-bold pb-4 transition; 
     background: var(--color-base);
     border-color: var(--black-color);
+  }
+
+  .btn:active {
+    @apply scale-95 opacity-90;
   }
 
   .btn__shadow {
@@ -38,6 +42,20 @@ body {
 
   .btn:hover {
     filter: brightness(0.95);
+  }
+
+  .btn__base_2 {
+    @apply flex items-center justify-start inline-flex gap-3 px-8 py-6 rounded-r-xl border text-white text-xl font-bold ; 
+    background: var(--input-bg-color);
+    border-color: var(--bg-color-primary);
+  }
+
+  .btn:active {
+    @apply scale-95 opacity-90;
+  }
+
+  .btn__shadow {
+    box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.55);
   }
 
   .hover-style_v2 {
@@ -49,7 +67,6 @@ body {
     color: #1c1e21;
     line-height: 16px;
     overflow: hidden;
-    /* padding: 13px 20px; */
     position: relative;
     text-align: center;
     transition:

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { logOut } from "../utils/utils";
 import { storeToRefs } from "pinia";
+
+import { logOut } from "../utils/utils";
 import { useSettingsStore } from "../../stores/settings";
 import ShowCode from "../components/ShowCode.vue";
 import { subModules } from "../utils/common";
@@ -15,43 +17,45 @@ definePageMeta({
   layout: "modules",
 });
 
+const isActive = ref(false);
+
 const logOutFn = () => {
   logOut();
   router.push("/");
 };
 </script>
 <template>
-  <div class="modules">
-    <aside
-      class="modules__sidebar"
-      :style="{
-        background: `linear-gradient(
-        180deg,
-        ${settings.colorPalette},
-        ${settings.background === 'gray' ? '#1f1f1f' : '#ffffff'}
-      )`,
-      }"
-    >
-      <h2 class="modules__logo">Admin Panel</h2>
+  <div class="flex min-h-screen font-bold">
+    <aside class="flex flex-col pr-6 w-60 bg-[var(--bg-color-secondary)]">
+      <h2 class="font-bold text-(--color-base) text-2xl mt-6 mb-6 text-center">
+        Admin Panel
+      </h2>
 
-      <nav class="modules__nav">
+      <nav class="font-(--font-base) flex flex-col gap-10 mt-6">
         <NuxtLink
           v-for="sub in subModules"
           :to="sub.to"
-          class="modules__link"
+          active-class="btn__base_2 btn__shadow"
+          class="text-(--color-text-primary) text-xl pl-4 inline-flex"
           :key="sub.route"
-          >{{ sub.name }}
+        >
+          <component :is="sub.icon" class="w-5 h-5 shrink-0 mr-2" />
+          <span>
+            {{ sub.name }}
+          </span>
         </NuxtLink>
       </nav>
     </aside>
 
     <section
-      class="modules__main"
+      class="flex flex-col flex-1 p-6"
       :style="{
         backgroundColor: settings.background === 'gray' ? '#f3f4f6' : 'white',
       }"
     >
-      <header class="modules__header">
+      <header
+        class="flex items-center justify-between gap-4 px-4 py-3 bg-white rounded-[14px]"
+      >
         <ShowCode />
 
         <button
@@ -71,7 +75,7 @@ const logOutFn = () => {
         </button>
       </header>
 
-      <main class="modules__content">
+      <main class="flex-1 p-[2rem]">
         <slot />
       </main>
     </section>
@@ -79,83 +83,6 @@ const logOutFn = () => {
 </template>
 
 <style scoped>
-.modules {
-  display: flex;
-  min-height: 100vh;
-  font-family: "Inter", sans-serif;
-}
-
-.modules__nav {
-  font-family: var(--font-base);
-  color: #374151;
-}
-
-/* --- Sidebar --- */
-.modules__sidebar {
-  width: 240px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem;
-  transition: background 0.3s ease;
-}
-
-.modules__logo {
-  font-family: var(--font-base);
-  font-weight: 700;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.modules__nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.modules__link {
-  font: var(--font-base);
-  color: white;
-  text-decoration: none;
-  padding: 0.6rem 1rem;
-  border-radius: 0.4rem;
-  transition: background 0.2s;
-}
-
-.modules__link:hover,
-.modules__link.router-link-active {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* --- Main Area --- */
-.modules__main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #f9fafb;
-}
-
-.modules__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 16px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.modules__title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #374151;
-}
-
 .modules__logout {
   background: linear-gradient(90deg, #59c080, #4fadbe);
   border: none;
@@ -169,10 +96,5 @@ const logOutFn = () => {
 
 .modules__logout:hover {
   opacity: 0.9;
-}
-
-.modules__content {
-  flex: 1;
-  padding: 2rem;
 }
 </style>

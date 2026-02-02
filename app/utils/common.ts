@@ -11,35 +11,43 @@ export const usersTable: string[] = [
   "Permissions",
 ];
 
+import {
+  UsersIcon,
+  CloudIcon,
+  Squares2X2Icon,
+  CircleStackIcon,
+  CubeIcon,
+} from "@heroicons/vue/24/outline";
+
 export const subModules = [
   {
     name: "Users",
     route: "users",
     to: "/dashboard/users",
-    source: UserSource,
+    icon: UsersIcon,
   },
   {
     name: "Api Calls",
     route: "api-calls",
     to: "/dashboard/api-calls",
-    source: ApiCallsSource,
+    icon: CloudIcon,
   },
   {
     name: "My components",
     route: "my-components",
     to: "/dashboard/my-components",
-    source: MyComponentsSource,
+    icon: Squares2X2Icon,
   },
   {
     name: "Store Management",
     route: "store-management",
     to: "/dashboard/store-management",
-    source: StoreManagmentSource,
+    icon: CircleStackIcon,
   },
   {
     name: "Amazon Web Services",
     route: "amazon-web-services",
     to: "/dashboard/amazon-web-services",
-    source: AmazonWebServicesSource,
+    icon: CubeIcon,
   },
 ];

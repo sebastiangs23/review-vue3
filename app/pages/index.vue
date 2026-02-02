@@ -32,7 +32,7 @@ const handleSubmit = async () => {
 const notifyFrontendOnly = (provider: string) => {
   try {
     toast.info(
-      `"${provider}" login is not available. This is a frontend-only demo.`,
+      `${provider} login is not available. This is a frontend-only demo.`,
     );
   } catch (error) {
     console.log("Toast notification error:", error);
@@ -42,7 +42,7 @@ const notifyFrontendOnly = (provider: string) => {
 
 <template>
   <main
-    class="bg-[var(--bg-color-primary)] flex font-bold font-bold items-center justify-center min-h-screen"
+    class="bg-[var(--bg-color-primary)] flex font-bold items-center justify-center min-h-screen"
   >
     <header class="absolute top-2 left-2 sm:top-6 sm:left-6">
       <img :src="logo" class="w-24" alt="Logo" />
