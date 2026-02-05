@@ -4,7 +4,7 @@ definePageMeta({ layout: "modules" });
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useSettingsStore } from "../../../stores/settings";
-import ModalCode from "../../components/ModalCode.vue";
+import ModalCode from "../../components/modals/ModalCode.vue";
 import ColorPalette from "../../components/ColorPalette.vue";
 import ColorPaletteSource from "../../components/ColorPalette.vue?raw";
 

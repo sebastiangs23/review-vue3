@@ -1,40 +1,43 @@
-import type { User } from "../types/user.d.ts"
+import type { User, submodulesPermission } from "../types/user.d.ts";
+import { subModules } from "../utils/common.js";
 
 export const logIn = (username: any, password: any) => {
-  try{
+  try {
     const storedUsers = localStorage.getItem("users");
     const users: User[] = storedUsers ? JSON.parse(storedUsers) : [];
 
-    const user = users.find((user) => user.username === username && user.password === password);
+    const user = users.find(
+      (user) => user.username === username && user.password === password,
+    );
 
-    if(!user){
+    if (!user) {
       alert("Invalid username or password");
       return;
-    }else {
+    } else {
       localStorage.setItem("currentUser", JSON.stringify(user));
       return {
         status: "success",
-        message: "Welcome!"
-      }
+        message: "Welcome!",
+      };
     }
-  }catch(error: any){
+  } catch (error: any) {
     alert("Something went wrong");
   }
-}
+};
 
 export const getUsers = async () => {
   try {
-
     const storedUsers = localStorage.getItem("users");
     let response: User[] = storedUsers ? JSON.parse(storedUsers) : [];
 
     const storedCurrentUser = localStorage.getItem("currentUser");
-    let responseCurrentUser = storedCurrentUser ? JSON.parse(storedCurrentUser) : null;
+    let responseCurrentUser = storedCurrentUser
+      ? JSON.parse(storedCurrentUser)
+      : null;
     const data = response?.filter((user: any) => {
-      
       return user.email != responseCurrentUser?.email;
     });
-    
+
     return data;
   } catch (error) {
     console.log(error);
@@ -43,23 +46,36 @@ export const getUsers = async () => {
 
 export const editUser = (email: string, updatedUser: User) => {
   const users = JSON.parse(localStorage.getItem("users") || "");
-  const userIndex = users.findIndex((user: User) => user.email === email );
+  const userIndex = users.findIndex((user: User) => user.email === email);
 
-  if(userIndex === -1) {
+  if (userIndex === -1) {
     return {
       status: 404,
-      message: "User not found"
-    }
+      message: "User not found",
+    };
   }
 
   users[userIndex] = updatedUser;
 
-  localStorage.setItem("users", JSON.stringify(users))
-
+  localStorage.setItem("users", JSON.stringify(users));
 };
 
 export const addUser = (user: User) => {
   const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const subModulesPermissions: submodulesPermission[] = [];
+  subModules.map((module) => {
+    //TODO: Pending change the icon to be stored as a string, technically is the best practice.
+    console.log('let"s see', module);
+
+    subModulesPermissions.push(
+      {
+        submodule: module.name,
+        access: true,
+        icon: JSON.stringify(module.icon),
+      },
+    );
+  });
+  user.submodules = subModulesPermissions;
   users.push(user);
   localStorage.setItem("users", JSON.stringify(users));
 };
@@ -88,8 +104,8 @@ export const deleteUser = (email: string) => {
 export const logOut = () => {
   try {
     localStorage.removeItem("currentUser");
-  }catch(error){
+  } catch (error) {
     console.log(error);
     alert("Something went wrong");
   }
-}
+};

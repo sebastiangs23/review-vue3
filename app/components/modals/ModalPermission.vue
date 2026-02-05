@@ -65,7 +65,7 @@ const savePermissions = () => {
       <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
         <div
           v-for="module in subModules"
-          :key="module.route"
+          :key="module.name"
           class="flex items-center justify-between rounded-xl border border-black/30 bg-black/20 px-4 py-3"
         >
           <div class="flex items-center gap-3">
@@ -77,7 +77,7 @@ const savePermissions = () => {
           <label class="relative inline-flex cursor-pointer items-center">
             <input
               type="checkbox"
-              v-model="permissions[module.route]"
+              v-model="permissions[module.name.toLowerCase()]"
               class="peer sr-only"
             />
             <div
