@@ -65,19 +65,24 @@ export const addUser = (user: User) => {
 };
 
 export const deleteUser = (email: string) => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "[]");
-  if (currentUser.email === email) alert("You cannot delete yourself");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
-  if (!confirm("Are you sure you want to delete this user?")) return;
- 
+  if (currentUser?.email === email) {
+    return {
+      status: 400,
+      message: "You cannot delete yourself",
+    };
+  }
+
   const users = JSON.parse(localStorage.getItem("users") || "[]");
   const filteredUsers = users.filter((user: User) => user.email !== email);
+
   localStorage.setItem("users", JSON.stringify(filteredUsers));
 
   return {
     status: 200,
-    message: "User deleted successfully"
-  }
+    message: "User deleted successfully",
+  };
 };
 
 export const logOut = () => {

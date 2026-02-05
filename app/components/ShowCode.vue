@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
-import ModalCode from "../components/ModalCode.vue";
+import ModalCode from "../components/modals/ModalCode.vue";
 
 import { subModules } from "../utils/common";
 
@@ -26,8 +26,8 @@ const closeModal = () => {
 </script>
 
 <template>
-  <header class="container__header">
-      <button class="show-code" @click="showCode = true">
+  <header class="flex">
+      <button class="btn text-(--color-text-secondary) btn__shadow" @click="showCode = true">
         {{ `<ShowCode path="${currentSubModule ? currentSubModule.route : "-"}" />` }}
       </button>
 
@@ -41,27 +41,16 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-.container__header {
-    display: flex;
-    gap: 12px;
-}
+
 
 .show-code {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
-
   border-radius: 8px;
   border: 1px solid rgba(15, 23, 42, 0.15);
-
-  background: #0f172a;
-  color: #e5e7eb;
-  
-
   font-size: 13px;
   font-weight: 600;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
 
   letter-spacing: 0.2px;
   cursor: pointer;
