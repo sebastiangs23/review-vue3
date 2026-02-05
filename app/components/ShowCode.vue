@@ -20,7 +20,6 @@ const currentSubModule = computed(() => {
 });
 
 const closeModal = () => {
-  console.log('The emit is getting executed');
   showCode.value = false;
 };
 </script>

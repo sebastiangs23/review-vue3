@@ -34,10 +34,6 @@ watch(
 const savePermissions = () => {
   emit("save", { ...permissions });
 };
-
-onMounted(() => {
-  console.log(user)
-});
 </script>
 
 <template>
@@ -48,7 +44,6 @@ onMounted(() => {
     <div
       class="w-full max-w-lg rounded-2xl bg-[var(--bg-color-secondary)] border border-black/40 p-6 text-white"
     >
-    <pre> AASASASA {{user}} </pre>
       <!-- HEADER -->
       <div class="flex items-center justify-between mb-6">
         <div>
