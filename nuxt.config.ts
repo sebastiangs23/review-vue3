@@ -9,4 +9,10 @@ export default defineNuxtConfig({
   ],
   modules: ["@pinia/nuxt", "@nuxt/icon"],
   vite: { plugins: [tailwindcss()] },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
 });
