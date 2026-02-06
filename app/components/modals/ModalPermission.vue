@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, watch } from "vue";
+import { onMounted, reactive, watch, computed } from "vue";
 import { XMarkIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { subModules } from "../../utils/common";
 
@@ -28,8 +28,12 @@ watch(
       }
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
+
+const iconMap = computed(() => {
+  return Object.fromEntries(subModules.map((m) => [m.name, m.icon]));
+});
 
 const savePermissions = () => {
   emit("save", { ...permissions });
@@ -49,7 +53,8 @@ const savePermissions = () => {
         <div>
           <h2 class="text-xl font-bold">Manage Permissions</h2>
           <p class="text-gray-300 text-sm">
-            Permissions for <span class="font-semibold">{{ user?.username }}</span>
+            Permissions for
+            <span class="font-semibold">{{ user?.username }}</span>
           </p>
         </div>
 
@@ -60,32 +65,30 @@ const savePermissions = () => {
           <XMarkIcon class="w-5 h-5 text-gray-300" />
         </button>
       </div>
-      
       <!-- MODULES -->
       <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
         <div
-          v-for="module in subModules"
-          :key="module.name"
+          v-for="module in user?.submodules"
+          :key="module.submodule"
           class="flex items-center justify-between rounded-xl border border-black/30 bg-black/20 px-4 py-3"
         >
           <div class="flex items-center gap-3">
-            <component :is="module.icon" class="w-5 h-5 text-gray-300" />
-            <span class="font-medium">{{ module.name }}</span>
+            <component
+              :is="iconMap[module.submodule]"
+              class="w-5 h-5 text-gray-300"
+            />
+            <span class="font-medium">{{ module.submodule }}</span>
           </div>
 
           <!-- CHECKBOX -->
           <label class="relative inline-flex cursor-pointer items-center">
             <input
               type="checkbox"
-              v-model="permissions[module.name.toLowerCase()]"
+              v-model="module.access"
               class="peer sr-only"
             />
             <div
-              class="peer h-6 w-11 rounded-full bg-black/40
-                     after:absolute after:left-[2px] after:top-[2px]
-                     after:h-5 after:w-5 after:rounded-full after:bg-white
-                     after:transition-all peer-checked:bg-[var(--color-base)]
-                     peer-checked:after:translate-x-full"
+              class="peer h-6 w-11 rounded-full bg-black/40 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-[var(--color-base)] peer-checked:after:translate-x-full"
             ></div>
           </label>
         </div>
@@ -101,7 +104,7 @@ const savePermissions = () => {
         </button>
 
         <button
-          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-base)] text-black  font-semibold hover:brightness-95 transition btn__shadow"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-base)] text-black font-semibold hover:brightness-95 transition btn__shadow"
           @click="savePermissions"
         >
           <CheckCircleIcon class="w-4 h-4 stroke-[2.5]" />
