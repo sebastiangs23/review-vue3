@@ -1,5 +1,5 @@
 <script setup>
-import Loader from "../../components/Loader.vue";
+import Loader from "~/components/Loader.vue";
 
 definePageMeta({
   layout: "modules",
