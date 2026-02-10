@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useToast } from "vue-toastification";
 
 import { useUsers } from "../../composables/user";
 import { useCurrentUser } from "../../composables/currentUser";
@@ -9,12 +8,11 @@ import Table from "../../components/Table.vue";
 import Modal from "../../components/modals/Modal.vue";
 import ModalConfirmation from "../../components/modals/ModalConfirmation.vue";
 import ModalPermission from "../../components/modals/ModalPermission.vue";
+import { PlusCircleIcon } from "@heroicons/vue/24/outline";
 
 import { usersTable } from "../../utils/common";
 
-import { PlusCircleIcon } from "@heroicons/vue/24/outline";
-
-const toast = useToast();
+const { $toast } = useNuxtApp()
 const { users, load, add, edit, erase } = useUsers();
 
 definePageMeta({
@@ -75,11 +73,11 @@ const openModal = (user, action) => {
 const saveUser = () => {
   if (selectedUser.value) {
     edit(selectedUser.value.email, form.value);
-    toast.success("User updated successfully");
+    $toast.success("User updated successfully");
   } else {
     const newUser = { ...form.value };
     add(newUser);
-    toast.success("User created successfully");
+    $toast.success("User created successfully");
   }
 
   load();
@@ -97,9 +95,9 @@ const confirmDelete = async () => {
   const result = await erase(userToDelete.value?.email);
   
   if (result?.status !== 200) {
-    toast.error(result.message);
+    $toast.error(result.message);
   } else {
-    toast.success(result.message);
+    $toast.success(result.message);
     load();
   }
 

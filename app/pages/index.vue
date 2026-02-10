@@ -1,17 +1,17 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { useNuxtApp } from '#app';
+import { ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { logIn } from "../utils/utils";
-import { useToast } from "vue-toastification";
 
 import logo from "../assets/sg-logo.png";
 
 const router = useRouter();
-const toast = useToast();
+const { $toast } = useNuxtApp();
 
-const username = ref("");
+const username = ref<string>("");
 const password = ref("");
 const errorMessage = ref("");
 const loading = ref(false);
@@ -31,11 +31,13 @@ const handleSubmit = async () => {
 
 const notifyFrontendOnly = (provider: string) => {
   try {
-    toast.info(
+    $toast.info(
       `${provider} login is not available. This is a frontend-only demo.`,
     );
   } catch (error) {
-    console.log("Toast notification error:", error);
+    $toast.warning(
+      `Something went wrong with ${provider} login.`,
+    );
   }
 };
 </script>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useToast } from "vue-toastification";
+import { useNuxtApp } from '#app';
 import { XMarkIcon, PencilSquareIcon } from "@heroicons/vue/24/outline";
 
-const toast = useToast();
+const { $toast } = useNuxtApp();
 
 defineProps<{
   show: boolean;
@@ -26,7 +26,7 @@ const closeModal = () => {
 };
 
 const confirmAction = () => {
-  toast.info("Editing permissions...");
+  $toast.info("Editing permissions...");
   emit("confirm");
 };
 </script>

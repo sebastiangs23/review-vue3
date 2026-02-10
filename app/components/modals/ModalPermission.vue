@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useNuxtApp } from '#app';
 import { onMounted, reactive, watch, computed } from "vue";
-import { useToast } from "vue-toastification";
 import { XMarkIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { subModules } from "../../utils/common";
 
@@ -12,13 +12,12 @@ const props = defineProps<{
   modelValue?: Record<string, boolean>;
 }>();
 
-
 const emit = defineEmits<{
   (e: "close"): void;
   (e: "save", permissions: Record<string, boolean>): void;
 }>();
 
-const toast = useToast();
+const { $toast } = useNuxtApp();
 
 const iconMap = computed(() => {
   return Object.fromEntries(subModules.map((m) => [m.name, m.icon]));
@@ -34,7 +33,7 @@ const savePermissions = () => {
 
   localStorage.setItem("users", JSON.stringify(updatedUsers));
   emit('close')
-  toast.success(
+  $toast.success(
       `User "${props.user?.username}" permissions updated successfully.`,
     );
 
