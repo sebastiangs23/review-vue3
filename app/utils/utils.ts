@@ -61,19 +61,35 @@ export const editUser = (email: string, updatedUser: User) => {
 };
 
 export const addUser = (user: User) => {
-  const users = JSON.parse(localStorage.getItem("users") || "[]");
-  const subModulesPermissions: submodulesPermission[] = [];
-  subModules.map((module) => {
+  try {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    subModulesPermissions.push({
-      submodule: module.name,
-      access: true,
-      icon: module.name
+    if (users.some((u: User) => u.email === user.email)) {
+      return {
+        status: 400,
+        message: "User with this email already exists",
+      };
+    }
+
+    const subModulesPermissions: submodulesPermission[] = [];
+    subModules.map((module) => {
+      subModulesPermissions.push({
+        submodule: module.name,
+        access: true,
+        icon: module.name,
+      });
     });
-  });
-  user.submodules = subModulesPermissions;
-  users.push(user);
-  localStorage.setItem("users", JSON.stringify(users));
+
+    user.submodules = subModulesPermissions;
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+    return {
+      status: 200,
+      message: "User added successfully",
+    };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deleteUser = (email: string) => {

@@ -29,11 +29,16 @@ const handleSubmit = async () => {
       password: password.value
     };
 
-    add(data);
-    $toast.success('Account created successfully! Redirecting to dashboard...')
-    localStorage.setItem("currentUser", JSON.stringify(data));
-    router.push('/dashboard')
+    const response = await add(data);
 
+    if (response?.status === 200) {
+      $toast.success('Account created successfully! Redirecting to dashboard...')
+      localStorage.setItem("currentUser", JSON.stringify(data));
+      router.push('/dashboard')
+    } else {
+      $toast.error(response?.message)
+      errorMessage.value = response?.message || 'Failed to create account'
+    }
   } catch (err: any) {
     errorMessage.value = err.message || 'Unexpected error occurred'
   } finally {

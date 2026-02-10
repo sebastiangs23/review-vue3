@@ -9,8 +9,9 @@ export function useUsers(){
     };
 
     const add = async (users: any) => {
-        addUser(users);
+        const response = addUser(users);
         await load();
+        return response;
     };
 
     const edit = async (email: string, data: any) => {
