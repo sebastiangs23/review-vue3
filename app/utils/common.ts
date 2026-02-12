@@ -25,29 +25,34 @@ export const subModules = [
     route: "users",
     to: "/dashboard/users",
     icon: UsersIcon,
+    source: UserSource
   },
   {
     name: "Api Calls",
     route: "api-calls",
     to: "/dashboard/api-calls",
     icon: CloudIcon,
+    source: ApiCallsSource
   },
   {
     name: "My components",
     route: "my-components",
     to: "/dashboard/my-components",
     icon: Squares2X2Icon,
+    source: StoreManagmentSource
   },
   {
     name: "Store Management",
     route: "store-management",
     to: "/dashboard/store-management",
     icon: CircleStackIcon,
+    source: AmazonWebServicesSource
   },
   {
     name: "Amazon Web Services",
     route: "amazon-web-services",
     to: "/dashboard/amazon-web-services",
     icon: CubeIcon,
+    source: MyComponentsSource
   },
 ];
