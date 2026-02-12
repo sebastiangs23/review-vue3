@@ -20,6 +20,7 @@ const handleSubmit = async () => {
   errorMessage.value = "";
 
   try {
+    //TODO: Change the input from user to email and update the logic related to that in all the components and functions
     const response = logIn(username.value, password.value);
     if (response?.status === "success") {
       router.push("/dashboard");
