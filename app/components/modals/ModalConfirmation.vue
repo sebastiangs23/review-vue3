@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XMarkIcon, TrashIcon } from "@heroicons/vue/24/outline";
+import { XMarkIcon, TrashIcon, XCircleIcon } from "@heroicons/vue/24/outline";
 
 defineProps<{
   show: boolean;
@@ -41,9 +41,10 @@ const emit = defineEmits<{
       <!-- ACTIONS -->
       <div class="flex justify-end gap-3">
         <button
-          class="px-4 py-2 rounded-xl bg-[var(--bg-color-third)] text-white hover:bg-black/30 transition"
+          class="flex px-4 py-2 rounded-xl bg-[var(--bg-color-third)] text-white hover:bg-black/30 transition"
           @click="$emit('close')"
         >
+          <XCircleIcon class="w-6 h-6 mr-1" />
           Cancel
         </button>
 

@@ -16,7 +16,7 @@ const route = useRoute();
 const currentSubModule = computed(() => {
   const path = route.path?.split("/")[2];
   const module = subModules.find((mod) => mod.route === path);
-  console.log('module--->' , module)
+  
   return module;
 });
 

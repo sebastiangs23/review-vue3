@@ -15,7 +15,6 @@ const copied = ref(false);
 const minimized = ref(false);
 let copiedTimer: number | undefined;
 
-/* Reset minimized state when modal closes */
 watch(
   () => props.show,
   (v) => {

@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { useNuxtApp } from '#app';
+import { useNuxtApp } from "#app";
 import { onMounted, reactive, watch, computed } from "vue";
-import { XMarkIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
+import {
+  XMarkIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+} from "@heroicons/vue/24/outline";
 import { subModules } from "../../utils/common";
 
 import type { User } from "../../types/user.d.ts";
@@ -23,20 +27,25 @@ const iconMap = computed(() => {
   return Object.fromEntries(subModules.map((m) => [m.name, m.icon]));
 });
 
-//TODO: Add error handling 
+//TODO: Add error handling
 const savePermissions = () => {
-  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  try {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-  const updatedUsers = users.map((u: User) =>
-    u.email === props.user.email ? props.user : u
-  );
-
-  localStorage.setItem("users", JSON.stringify(updatedUsers));
-  emit('close')
-  $toast.success(
-      `User "${props.user?.username}" permissions updated successfully.`,
+    const updatedUsers = users.map((u: User) =>
+      u.email === props.user.email ? props.user : u,
     );
 
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    emit("close");
+    $toast.success(
+      `User "${props.user?.username}" permissions updated successfully.`,
+    );
+  } catch (error) {
+    $toast.error(
+      `Was not possible edit the permissions.`,
+    );
+  }
 };
 </script>
 
@@ -83,6 +92,7 @@ const savePermissions = () => {
           <!-- CHECKBOX -->
           <label class="relative inline-flex cursor-pointer items-center">
             <input
+              :disabled="module?.submodule === 'Users'"
               type="checkbox"
               v-model="module.access"
               class="peer sr-only"
@@ -97,9 +107,10 @@ const savePermissions = () => {
       <!-- ACTIONS -->
       <div class="flex justify-end gap-3 mt-6">
         <button
-          class="px-4 py-2 rounded-xl bg-[var(--bg-color-third)] text-white hover:bg-black/30 transition"
+          class="flex px-4 py-2 rounded-xl bg-[var(--bg-color-third)] text-white hover:bg-black/30 transition"
           @click="$emit('close')"
         >
+          <XCircleIcon class="w-6 h-6 mr-1" />
           Cancel
         </button>
 

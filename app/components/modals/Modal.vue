@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNuxtApp } from '#app';
-import { XMarkIcon, PencilSquareIcon } from "@heroicons/vue/24/outline";
+import { XMarkIcon, PencilSquareIcon, XCircleIcon } from "@heroicons/vue/24/outline";
 
 const { $toast } = useNuxtApp();
 
@@ -60,7 +60,6 @@ const confirmAction = () => {
         {{ content }}
       </p>
 
-      <!-- TODO: Style the form acording to the color palette -->
       <!-- FORM -->
       <div class="space-y-4 mb-6">
         <input
@@ -89,16 +88,16 @@ const confirmAction = () => {
       <div class="flex justify-end gap-3">
         <!-- CANCEL -->
         <button
-          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--delete-color)] text-white font-semibold hover:brightness-95 transition"
+          class="flex pl-2 pr-4 py-2 rounded-xl bg-[var(--bg-color-third)] text-white hover:bg-black/30 transition"
           @click="closeModal"
         >
-          <XMarkIcon class="w-4 h-4" />
+          <XCircleIcon class="w-6 h-6 mr-1" />
           Cancel
         </button>
 
         <!-- CONFIRM -->
         <button
-          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--edit-color)] text-white font-semibold hover:brightness-95 transition btn__shadow"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-base)] text-black font-semibold hover:brightness-95 transition btn__shadow"
           @click="$emit('confirm')"
         >
           <PencilSquareIcon class="w-4 h-4" />
