@@ -22,7 +22,7 @@ const getItems = async () => {
   } catch (error) {
     console.log(error);
     error.value = true;
-  }finally {
+  } finally {
     loading.value = false;
   }
 };
@@ -35,21 +35,33 @@ onMounted(() => {
 <template>
   <Loader v-if="loading" />
 
-  <h2 class="store-title">Store</h2>
+  <h2 class="text-[2rem] weight-[700] mb-6 text-white">Store</h2>
 
-  <section class="store" v-if="!loading && !error">
-    <div class="store-grid">
-      <article v-for="item in items" :key="item.id" class="store-item">
-        <div class="store-item__image-wrapper">
-          <img :src="item.image" :alt="item.title" />
+  <section class="p-[1rem]" v-if="!loading && !error">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
+      <article
+        v-for="item in items"
+        :key="item.id"
+        class="store-item flex flex-col bg-[var(--color-base)] rounded-4xl p-1.25"
+      >
+        <div class="h-52 bg-[#8cbc40] rounded-4xl mb-[1rem]">
+          <div
+            class="flex items-center justify-center h-45 bg-[#4e5f33] w-full px-6 rounded-4xl"
+          >
+            <img :src="item.image" :alt="item.title" class="h-40" />
+          </div>
+          <div class="flex items-center justify-center py-2">
+            <span class="text-white font-semibold text-xs">
+              {{ item?.category }}
+            </span>
+          </div>
         </div>
 
-        <h3 class="store-item__title">{{ item.title }}</h3>
-        <p class="store-item__price">${{ item.price }}</p>
+        <h3 class="text-white"> item name: {{ item.title }}</h3>
+        <p class="text-blue">${{ item.price }}</p>
+        <span> rating : {{item?.rating?.rate}} </span>
 
-        <button class="store-item__button">
-          Add to cart
-        </button>
+        <button class="store-item__button">Add to cart</button>
       </article>
     </div>
   </section>
@@ -60,32 +72,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.store-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.store {
-  padding: 1rem;
-}
-
-.store-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
 .store-item {
-  background: #ffffff;
-  border-radius: 5px;
-  padding: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
 }
 
 .store-item:hover {
@@ -93,33 +84,6 @@ onMounted(() => {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-.store-item__image-wrapper {
-  background: #f7f7f7;
-  border-radius: 5px;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  margin-bottom: 1rem;
-}
-
-.store-item__image-wrapper img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-.store-item__title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 
 .store-item__price {
   font-size: 1.1rem;

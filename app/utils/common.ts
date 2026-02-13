@@ -3,6 +3,8 @@ import ApiCallsSource from "../pages/dashboard/api-calls.vue?raw";
 import StoreManagmentSource from "../pages/dashboard/store-management.vue?raw";
 import AmazonWebServicesSource from "../pages/dashboard/amazon-web-services.vue?raw";
 import MyComponentsSource from "../pages/dashboard/my-components.vue?raw";
+import WebSocket from "../pages/dashboard/web-socket.vue?raw";
+import { LinkIcon } from "@heroicons/vue/24/outline";
 
 export const usersTable: string[] = [
   "Username",
@@ -25,34 +27,41 @@ export const subModules = [
     route: "users",
     to: "/dashboard/users",
     icon: UsersIcon,
-    source: UserSource
+    source: UserSource,
   },
   {
     name: "Api Calls",
     route: "api-calls",
     to: "/dashboard/api-calls",
     icon: CloudIcon,
-    source: ApiCallsSource
+    source: ApiCallsSource,
   },
   {
-    name: "My components",
-    route: "my-components",
-    to: "/dashboard/my-components",
-    icon: Squares2X2Icon,
-    source: StoreManagmentSource
+    name: "Web Socket",
+    route: "web-socket",
+    to: "/dashboard/web-socket",
+    icon: LinkIcon,
+    source: WebSocket,
   },
   {
     name: "Store Management",
     route: "store-management",
     to: "/dashboard/store-management",
     icon: CircleStackIcon,
-    source: AmazonWebServicesSource
+    source: AmazonWebServicesSource,
   },
   {
     name: "Amazon Web Services",
     route: "amazon-web-services",
     to: "/dashboard/amazon-web-services",
     icon: CubeIcon,
-    source: MyComponentsSource
+    source: MyComponentsSource,
+  },
+  {
+    name: "My components",
+    route: "my-components",
+    to: "/dashboard/my-components",
+    icon: Squares2X2Icon,
+    source: StoreManagmentSource,
   },
 ];

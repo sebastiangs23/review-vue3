@@ -118,7 +118,7 @@ onMounted(() => {
 
 <template>
   <section
-    class="w-full bg-(--input-bg-color) border-dark border-2 btn__shadow rounded-[14px] p-4 sm:p-6 lg:p-8"
+    class="w-full bg-(--input-bg-color) border-dark border-2 btn__shadow rounded-[14px] mt-2 p-4 sm:p-6 sm:mt-0 lg:p-8"
   >
     <header
       class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6"
