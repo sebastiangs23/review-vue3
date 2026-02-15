@@ -11,12 +11,13 @@ body {
 /* Global Variables */
 :root {
   --font-base: "Karla", sans-serif;
+  --color-base: #abf600;
+  --color-base-secondary: #8bc404;
   --bg-color-primary: #212121;
   --bg-color-secondary: #272727;
   --bg-color-third: #2c2c2c;
   --color-text-primary: #ffffff;
-  --color-base: #abf600;
-  --color-base-secondary: #8bc404;
+  --color-text-secondary: #d6d6d6;
   --input-bg-color: #404040;
   --main-color: linear-gradient(90deg, #bec059, #4fadbe);
   --delete-color: #ef4444;
@@ -44,9 +45,17 @@ body {
   }
 
   .btn__base_2 {
-    @apply flex items-center justify-start inline-flex gap-3  py-6 rounded-r-xl  text-white text-xl font-bold ; 
+    @apply flex items-center justify-start gap-3  py-6 rounded-r-xl  text-white text-xl font-bold ; 
     background: var(--input-bg-color);
     border-color: var(--bg-color-primary);
+  }
+
+  /* MAKE A REUSABLE COMPONENT WITH DINAMIC CLASSES */
+  .btn__base_3 {
+    @apply flex items-center justify-start gap-1 p-[0.4rem] rounded-xl  text-white text-xs font-bold w-[50px] md:w-[100px]; 
+    background: var(--input-bg-color);
+    border-color: var(--bg-color-primary);
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.75);
   }
 
   .btn:active {

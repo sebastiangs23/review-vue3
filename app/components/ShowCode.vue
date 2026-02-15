@@ -27,7 +27,7 @@ const closeModal = () => {
 
 <template>
   <header class="flex">
-      <button class="btn text-(--color-text-secondary) btn__shadow text-xs sm:text-base" @click="showCode = true">
+      <button class="btn btn__shadow text-xs sm:text-base" @click="showCode = true">
         {{ `<ShowCode path="${currentSubModule ? currentSubModule.route : "-"}" />` }}
       </button>
 

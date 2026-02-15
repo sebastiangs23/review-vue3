@@ -1,5 +1,7 @@
 <script setup>
 import Loader from "~/components/Loader.vue";
+import Badge from "~/components/Badge.vue";
+import { ShoppingCartIcon, StarIcon } from "@heroicons/vue/24/solid";
 
 definePageMeta({
   layout: "modules",
@@ -42,68 +44,70 @@ onMounted(() => {
       <article
         v-for="item in items"
         :key="item.id"
-        class="store-item flex flex-col bg-[var(--color-base)] rounded-4xl p-1.25"
+        class="flex flex-col btn__shadow border-2 border-[var(--color-dark)] rounded-4xl p-1.25"
       >
-        <div class="h-52 bg-[#8cbc40] rounded-4xl mb-[1rem]">
+        <div class="h-52 bg-[#9be427] rounded-4xl mb-[1rem]">
           <div
-            class="flex items-center justify-center h-45 bg-[#4e5f33] w-full px-6 rounded-4xl"
+            class="flex items-center justify-center h-45 bg-[#ededed] w-full px-6 rounded-4xl"
           >
             <img :src="item.image" :alt="item.title" class="h-40" />
           </div>
           <div class="flex items-center justify-center py-2">
-            <span class="text-white font-semibold text-xs">
+            <span
+              class="text-[var(--color-text-secondary)] text-black font-semibold text-xs"
+            >
               {{ item?.category }}
             </span>
           </div>
         </div>
 
-        <h3 class="text-white"> item name: {{ item.title }}</h3>
-        <p class="text-blue">${{ item.price }}</p>
-        <span> rating : {{item?.rating?.rate}} </span>
+        <section class="flex justify-between">
+          <Badge
+            :text="item?.title"
+            colorText="#AABBCC"
+            class="max-w-[150px]"
+          />
+          <Badge
+            :text="'$' + item?.price"
+            colorText="#AABBCC"
+            class="max-w-[90px]"
+            :toolTipActive="false"
+          />
+        </section>
 
-        <button class="store-item__button">Add to cart</button>
+        <span
+          class="flex bg-[var(--color-base)] rounded-md my-2 px-3 py-1 text-xs font-semibold leading-none w-[100px]"
+        >
+          <StarIcon
+            v-for="n in Math.min(
+              5,
+              Math.floor(Number(item?.rating?.rate ?? 0)),
+            )"
+            :key="`item-${item.id}-full-${n}`"
+            class="w-4 h-4 text-black"
+          />
+
+          <StarIcon
+            v-for="n in 5 -
+            Math.min(5, Math.floor(Number(item?.rating?.rate ?? 0)))"
+            :key="`item-${item.id}-empty-${n}`"
+            class="w-4 h-4 text-black/30"
+          />
+        </span>
+
+        <div class="flex justify-center align-center mb-2">
+          <button
+            class="btn__base_3 border-2 border-[var(--color-dark)] cursor-pointer"
+          >
+            <ShoppingCartIcon class="h-4 w-4" />
+            Add to cart
+          </button>
+        </div>
       </article>
     </div>
   </section>
 
-  <p v-if="error" class="store-error">
+  <p v-if="error">
     Failed to load products. Please try again.
   </p>
 </template>
-
-<style scoped>
-.store-item {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.store-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-
-
-.store-item__price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.store-item__button {
-  margin-top: auto;
-  background: #111;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 0.6rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.store-item__button:hover {
-  background: #333;
-}
-</style>

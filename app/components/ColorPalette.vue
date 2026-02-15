@@ -22,7 +22,7 @@ function onInput(e: Event) {
 </script>
 
 <template>
-  <div class="settings__color-picker">
+  <div class="flex items-center gap-[1rem] p-[0.5rem 0]">
     <label>{{ props.label }}</label>
     <input 
       type="color"
@@ -40,12 +40,3 @@ function onInput(e: Event) {
     </span>
   </div>
 </template>
-
-<style scoped>
-.settings__color-picker {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
-</style>
