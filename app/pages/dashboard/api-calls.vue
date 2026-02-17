@@ -40,7 +40,7 @@ onMounted(() => {
 
   <Title text="Store" :size=1 />
 
-  <section class="p-[1rem]" v-if="!loading && !error">
+  <section class="p-4" v-if="!loading && !error">
     <div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
       <article
         v-for="item in items"
