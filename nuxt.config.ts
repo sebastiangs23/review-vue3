@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     "vue-toastification/dist/index.css",
     "@/assets/css/main.css",
   ],
-  modules: ["@pinia/nuxt", "@nuxt/icon"],
+  modules: ["@pinia/nuxt","pinia-plugin-persistedstate/nuxt" ,"@nuxt/icon"],
   vite: { plugins: [tailwindcss()] },
   components: [
     {

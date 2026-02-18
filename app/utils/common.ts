@@ -39,7 +39,7 @@ export const subModules = [
     source: UserSource,
   },
   {
-    name: "Api Calls",
+    name: "REST API Calls",
     route: "api-calls",
     to: "/dashboard/api-calls",
     icon: CloudIcon,
