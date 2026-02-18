@@ -1,6 +1,7 @@
 <script setup>
 import Title from "../../components/Title.vue";
 import Loader from "~/components/Loader.vue";
+import ModalCart from "~/components/modals/ModalCart.vue";
 import Badge from "~/components/Badge.vue";
 import { ShoppingCartIcon, StarIcon } from "@heroicons/vue/24/solid";
 
@@ -13,6 +14,12 @@ import { ref } from "vue";
 const items = ref([]);
 const loading = ref(false);
 const error = ref(false);
+const modalCart = ref(false);
+const productSelected = ref(null);
+
+onMounted(() => {
+  getItems();
+});
 
 const getItems = async () => {
   loading.value = true;
@@ -30,9 +37,11 @@ const getItems = async () => {
   }
 };
 
-onMounted(() => {
-  getItems();
-});
+const openModalCart = (item) => {
+  console.log(item);
+  productSelected.value = item;
+  modalCart.value = true;
+};
 </script>
 
 <template>
@@ -103,12 +112,15 @@ onMounted(() => {
 
         <div class="flex justify-center items-center mb-2">
           <button
+            @click="openModalCart(item)"
             class="btn__base_3 border-2 border-[var(--color-dark)] cursor-pointer"
           >
             <ShoppingCartIcon class="h-4 w-4" />
             Add to cart
           </button>
         </div>
+
+        <ModalCart :product="productSelected" :open="modalCart" @close="modalCart = false" />
       </article>
     </div>
   </section>

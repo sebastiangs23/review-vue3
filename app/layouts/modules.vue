@@ -3,10 +3,12 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
-import type { User } from "../types/user"; 
+import type { User } from "../types/user";
 import { subModules } from "../utils/common";
 import { logOut } from "../utils/utils";
 import { useSettingsStore } from "../../stores/settings";
+import Cart from "../components/Cart.vue";
+import ModalFullCart from "../components/modals/ModalFullCart.vue";
 import ShowCode from "../components/ShowCode.vue";
 
 import logo from "../assets/sg-logo-main.png";
@@ -26,17 +28,21 @@ const currentUser = ref<User>({
   username: "",
   email: "",
   password: "",
-  submodules: []
+  submodules: [],
 });
 const subModulesFormatted = ref();
 const isSidebarOpen = ref<boolean>(false);
 const isActive = ref<boolean>(false);
+const openCartModal = ref<boolean>(false);
 
 onMounted(() => {
   currentUser.value = JSON.parse(localStorage.getItem("currentUser"));
 
   const accessByName = new Map(
-    (currentUser.value?.submodules ?? []).map((s: any) => [s.submodule, s.access]) 
+    (currentUser.value?.submodules ?? []).map((s: any) => [
+      s.submodule,
+      s.access,
+    ]),
   );
 
   subModulesFormatted.value = subModules
@@ -45,7 +51,11 @@ onMounted(() => {
       access: accessByName.get(sub.name) ?? false,
     }))
     .filter((sub) => sub.access);
-})
+});
+
+const openCart = () => {
+  openCartModal.value = true;
+};
 
 const logOutFn = () => {
   logOut();
@@ -61,8 +71,10 @@ const logOutFn = () => {
         'md:translate-x-0',
       ]"
     >
-      <div class="flex items-center justify-between px-4 py-3 text-[var(--color-base)] md:hidden">
-        <img :src="logo" alt="logo" class="w-[4rem]">
+      <div
+        class="flex items-center justify-between px-4 py-3 text-[var(--color-base)] md:hidden"
+      >
+        <img :src="logo" alt="logo" class="w-[4rem]" />
         <h2 class="text-lg w-[8rem] font-bold">Admin Panel</h2>
 
         <button @click="isSidebarOpen = false">
@@ -70,8 +82,8 @@ const logOutFn = () => {
         </button>
       </div>
 
-      <header class="hidden md:flex items-center  py-3 text-[var(--color-base)]">
-        <img :src="logo" alt="logo" class="w-[5rem]">
+      <header class="hidden md:flex items-center py-3 text-[var(--color-base)]">
+        <img :src="logo" alt="logo" class="w-[5rem]" />
         <h2 class="text-xl font-bold">Admin Panel</h2>
       </header>
 
@@ -81,18 +93,16 @@ const logOutFn = () => {
           :key="sub.route"
           :to="sub.to"
           active-class="btn__base_2 btn__shadow border-2 border-[var(--color-dark)]"
-          class="flex items-center gap-3 text-[var(--color-text-primary)] text-lg pl-4 py-4 "
+          class="flex items-center gap-3 text-[var(--color-text-primary)] text-lg pl-4 py-4"
           @click="isSidebarOpen = false"
-        > 
+        >
           <component :is="sub.icon" class="w-5 h-5 shrink-0" />
           <span>{{ sub.name }}</span>
         </NuxtLink>
       </nav>
     </aside>
-    
-    <section
-      class="flex flex-col flex-1 p-6 bg-(--bg-color-third)"
-    >
+
+    <section class="flex flex-col flex-1 p-6 bg-(--bg-color-third)">
       <header
         class="flex items-center justify-between gap-4 p-3 md:px-4 md:pb-6 mb-4 md:mb-0 rounded-[14px] bg-[var(--input-bg-color)] btn__shadow border-2 border-[var(--color-dark)]"
       >
@@ -102,15 +112,24 @@ const logOutFn = () => {
         </button>
 
         <ShowCode />
-        
-        <button @click="logOutFn()" class="bg-[var(--color-base)] p-2 md:p-4 btn rounded-lg text-xs sm:text-base ">
-          LOGOUT
-        </button>
+
+        <div class="flex gap-2 md:gap-3 justify-items-center items-center" >
+          <Cart @click="openCart" />
+
+          <button
+            @click="logOutFn()"
+            class="bg-[var(--color-base)] p-2 md:p-4 btn rounded-lg text-xs sm:text-base"
+          >
+            LOGOUT
+          </button>
+        </div>
       </header>
 
-      <main class="flex-1 md:p-[2rem]  ">
+      <main class="flex-1 md:p-[2rem]">
         <slot />
       </main>
     </section>
+
+    <ModalFullCart :open="openCartModal" @close="openCartModal = false" />
   </div>
 </template>
