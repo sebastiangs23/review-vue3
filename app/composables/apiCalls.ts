@@ -12,7 +12,6 @@ export function useApiCall<T = unknown>(
   requestFactory: () => AxiosRequestConfig,
   options: UseApiCallOptions<T> = {}
 ) {
-  console.log('requestFactory', requestFactory)
   const data = shallowRef<T | null>(null);
   const error = ref<AxiosError | null>(null);
   const loading = ref(false);

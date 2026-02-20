@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import Title from "../../components/Title.vue";
 import Loader from "~/components/Loader.vue";
 import ModalCart from "~/components/modals/ModalCart.vue";
@@ -6,11 +7,12 @@ import Badge from "~/components/Badge.vue";
 import { useApiCall } from "../../composables/apiCalls";
 import { ShoppingCartIcon, StarIcon } from "@heroicons/vue/24/solid";
 
+const config = useRuntimeConfig();
+
 definePageMeta({
   layout: "modules",
 });
 
-import { ref } from "vue";
 
 const items = ref([]);
 const loader = ref(false);
@@ -20,7 +22,7 @@ const productSelected = ref(null);
 
 const { data, error, loading, execute } = useApiCall(() => ({
   method: "GET",
-  url: "https://fakestoreapi.com/products",
+  url: config.public.api,
 }));
 
 onMounted(() => {
