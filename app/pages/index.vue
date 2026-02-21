@@ -40,7 +40,7 @@ const handleSubmit = async () => {
 const notifyFrontendOnly = (provider: string) => {
   try {
     $toast.info(
-      `${provider} login is not available. This is a frontend-only demo.`,
+      `I'm thinking to implement Amazon Cognito for auth with ${provider}. For the moment only frontend demo :(`,
     );
   } catch (error) {
     $toast.warning(`Something went wrong with ${provider} login.`);
